@@ -90,53 +90,10 @@
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>Formulário de Encomenda</h2>
             <form id="orderForm" onsubmit="submitOrder(event)">
-                <div class="form-group">
-                    <label for="mineName">Nome no Mine:</label>
-                    <input type="text" id="mineName" required>
-                </div>
-                <div class="form-group">
-                    <label for="discord">Discord:</label>
-                    <input type="text" id="discord" required>
-                </div>
-                <div class="form-group">
-                    <label for="pokemon">Pokémon:</label>
-                    <input type="text" id="pokemon" required>
-                </div>
-                <div class="form-group">
-                    <label for="gender">Gênero:</label>
-                    <input type="text" id="gender" required>
-                </div>
-                <div class="form-group">
-                    <label for="ability">Ability:</label>
-                    <input type="text" id="ability" required>
-                    <p class="note">Não faço hidden abilitys por enquanto</p>
-                </div>
-                <div class="form-group">
-                    <label>IVs (0-31):</label>
-                    <div class="ivs">
-                        <input type="number" id="hp" placeholder="HP" min="0" max="31" required>
-                        <input type="number" id="atk" placeholder="ATK" min="0" max="31" required>
-                        <input type="number" id="def" placeholder="DEF" min="0" max="31" required>
-                        <input type="number" id="spatk" placeholder="SPATK" min="0" max="31" required>
-                        <input type="number" id="spdef" placeholder="SPDEF" min="0" max="31" required>
-                        <input type="number" id="spd" placeholder="SPD" min="0" max="31" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="eggMove">Algum egg move?:</label>
-                    <input type="text" id="eggMove">
-                </div>
-                <div class="form-group">
-                    <label for="level">Level:</label>
-                    <input type="number" id="level" min="1" max="100" required>
-                    <p class="note">1000$ por level</p>
-                </div>
-                <div class="form-group">
-                    <label for="notes">Observação extra:</label>
-                    <textarea id="notes" rows="4"></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Enviar</button>
-            </form>
+  <input type="text" id="mineName" placeholder="Nome no Mine" required>
+  <input type="text" id="discord" placeholder="Discord" required>
+  <button type="submit">Enviar</button>
+</form>
         </div>
     </div>
 
@@ -170,3 +127,4 @@
     <script src="{{ url_for('static', filename='submitOrder.js') }}"></script>
 </body>
 </html>
+

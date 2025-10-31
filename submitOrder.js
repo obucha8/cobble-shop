@@ -22,7 +22,7 @@ function submitOrder(event) {
     };
 
     // URL do seu Apps Script (substitua pela sua)
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzwOkQzyehZTWok5ByqOot1FGs2-BQf_lHGjMOGg_41o78uxiosJ9Jlzz-KuVkHd5aTFA/exec;
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzdtF4jSbYh2TeKZ3gl-Y7qrWjOURj7SpVqB08tAn7LXcWbAendZrbLgVXPsqyV1NGjkQ/exec;
 
     // Envia os dados via POST
     fetch(APPS_SCRIPT_URL, {
@@ -45,4 +45,5 @@ function submitOrder(event) {
         alert('Erro ao enviar o pedido: ' + error);
     });
 }
+
 

@@ -5,30 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loja de Pokémon - Cobblemon</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #000; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        input { padding: 10px; margin: 5px 0; border-radius: 5px; border: 1px solid #555; background: #222; color: white; width: 200px; }
+        body { font-family: Arial, sans-serif; background: #000; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        h1, h2 { text-align: center; }
+        input, textarea { padding: 10px; margin: 5px 0; border-radius: 5px; border: 1px solid #555; background: #222; color: white; width: 200px; }
+        textarea { resize: none; }
         button { padding: 10px 20px; margin-top: 10px; border: none; border-radius: 5px; cursor: pointer; background: #667eea; color: white; font-weight: bold; }
         button:hover { background: #764ba2; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; }
+        .modal-content { background: #111; padding: 20px; border-radius: 15px; max-width: 400px; width: 90%; }
+        .close { position: absolute; top: 10px; right: 15px; cursor: pointer; font-size: 24px; color: white; }
+        .success-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+        .success-modal-content { background: #667eea; padding: 30px; border-radius: 15px; text-align: center; }
     </style>
 </head>
 <body>
-    <h1>Teste Cobblemon</h1>
-    <form id="orderForm" onsubmit="submitOrder(event)">
-        <input type="text" id="mineName" placeholder="Nome no Mine" required>
-        <input type="text" id="discord" placeholder="Discord" required>
-        <button type="submit">Enviar</button>
-    </form>
+    <h1>Loja do Bucha - Cobblemon</h1>
+    <button onclick="openModal()">Fazer encomenda</button>
+
+    <!-- Modal do Formulário -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Formulário de Encomenda</h2>
+            <form id="orderForm" onsubmit="submitOrder(event)">
+                <input type="text" id="mineName" placeholder="Nome no Mine" required>
+                <input type="text" id="discord" placeholder="Discord" required>
+                <input type="text" id="pokemon" placeholder="Pokémon" required>
+                <input type="text" id="gender" placeholder="Gênero" required>
+                <input type="text" id="ability" placeholder="Ability" required>
+                <div>
+                    <input type="number" id="hp" placeholder="HP" min="0" max="31" required>
+                    <input type="number" id="atk" placeholder="ATK" min="0" max="31" required>
+                    <input type="number" id="def" placeholder="DEF" min="0" max="31" required>
+                    <input type="number" id="spatk" placeholder="SPATK" min="0" max="31" required>
+                    <input type="number" id="spdef" placeholder="SPDEF" min="0" max="31" required>
+                    <input type="number" id="spd" placeholder="SPD" min="0" max="31" required>
+                </div>
+                <input type="text" id="eggMove" placeholder="Algum egg move?">
+                <input type="number" id="level" placeholder="Level" min="1" max="100" required>
+                <textarea id="notes" rows="3" placeholder="Observações extras"></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Sucesso -->
+    <div id="successModal" class="success-modal">
+        <div class="success-modal-content">
+            <h2>Pedido enviado com sucesso!</h2>
+            <p>Você receberá informações futuras no seu Discord.</p>
+            <button onclick="closeSuccessModal()">OK</button>
+        </div>
+    </div>
 
     <script>
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzdtF4jSbYh2TeKZ3gl-Y7qrWjOURj7SpVqB08tAn7LXcWbAendZrbLgVXPsqyV1NGjkQ/exec';
+
+        function openModal() {
+            document.getElementById('orderModal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('orderModal').style.display = 'none';
+        }
+        function showSuccessModal() {
+            document.getElementById('successModal').style.display = 'flex';
+        }
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+        }
+
         function submitOrder(event) {
             event.preventDefault();
 
             const data = {
                 mineName: document.getElementById('mineName').value,
-                discord: document.getElementById('discord').value
+                discord: document.getElementById('discord').value,
+                pokemon: document.getElementById('pokemon').value,
+                gender: document.getElementById('gender').value,
+                ability: document.getElementById('ability').value,
+                hp: document.getElementById('hp').value,
+                atk: document.getElementById('atk').value,
+                def: document.getElementById('def').value,
+                spatk: document.getElementById('spatk').value,
+                spdef: document.getElementById('spdef').value,
+                spd: document.getElementById('spd').value,
+                eggMove: document.getElementById('eggMove').value,
+                level: document.getElementById('level').value,
+                notes: document.getElementById('notes').value
             };
-
-            const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzdtF4jSbYh2TeKZ3gl-Y7qrWjOURj7SpVqB08tAn7LXcWbAendZrbLgVXPsqyV1NGjkQ/exec';
 
             fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
@@ -37,14 +101,15 @@
             .then(response => response.json())
             .then(result => {
                 if(result.status === 'success') {
-                    alert('Pedido enviado com sucesso!');
+                    closeModal();
+                    showSuccessModal();
                     document.getElementById('orderForm').reset();
                 } else {
-                    alert('Erro ao enviar o pedido: ' + result.message);
+                    alert('Erro ao enviar: ' + result.message);
                 }
             })
             .catch(error => {
-                alert('Erro ao enviar o pedido: ' + error);
+                alert('Erro ao enviar: ' + error);
             });
         }
     </script>

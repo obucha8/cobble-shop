@@ -277,3 +277,13 @@ body {
 .submit-btn:hover {
     transform: scale(1.05);
 }
+
+/* Aviso abaixo do botão de envio */
+.submit-note {
+    color: #ff4d4d; /* Vermelho chamativo, mas não neon */
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+    opacity: 0.9;
+    font-weight: bold;
+}

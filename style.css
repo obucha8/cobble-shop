@@ -1,0 +1,279 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: #000000; /* Fundo totalmente preto */
+    overflow: hidden;
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ondas animadas no fundo */
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGZpbGw9IiMxMTExMTEiPjxwYXRoIGQ9Ik0wLDEwMCBDMzAwLDAgNjAwLDEwMCAxMDAwLDEwMCBMMTAwMCwxMDAgTDEsMTAwIFoiPjwvcGF0aD48L2c+PC9zdmc+') repeat-x;
+    animation: wave-move 10s linear infinite;
+    opacity: 0.7; /* Aumentado para melhor visibilidade no fundo preto */
+}
+
+.wave:nth-child(2) {
+    bottom: 20px;
+    animation-delay: -5s;
+    opacity: 0.5; /* Aumentado proporcionalmente */
+}
+
+.wave:nth-child(3) {
+    bottom: 40px;
+    animation-delay: -10s;
+    opacity: 0.35; /* Aumentado proporcionalmente */
+}
+
+@keyframes wave-move {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100px); }
+}
+
+/* Imagem da skin como overlay, respirando */
+.skin-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('skin2.png') no-repeat center center;
+    background-size: cover;
+    opacity: 0.7; /* Mantido */
+    z-index: 1;
+    animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0%, 100% { transform: scale(1) translateY(0); }
+    50% { transform: scale(1.02) translateY(-5px); }
+}
+
+/* Conteúdo centralizado */
+.content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+/* Texto animado */
+.title {
+    font-size: 36px;
+    color: white;
+    /* Removido text-shadow para reduzir neon */
+    animation: fadeIn 2s ease-in-out;
+    margin-bottom: 20px; /* Reduzido para acomodar o subtítulo */
+}
+
+.title .red {
+    color: #DC2626; /* Vermelho puro */
+}
+
+.title .purple {
+    color: #8B5CF6; /* Roxo puro */
+}
+
+.subtitle {
+    font-size: 24px;
+    color: white;
+    /* Removido text-shadow para reduzir neon */
+    animation: fadeIn 2s ease-in-out;
+    animation-delay: 0.5s; /* Aparece após o título */
+    opacity: 0;
+    animation-fill-mode: forwards;
+    margin-bottom: 50px;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Botão "Fazer encomenda" - maior, transparente com bordas, enche como água ao clicar */
+.order-button {
+    background: transparent;
+    color: white;
+    border: 3px solid white;
+    padding: 20px 40px;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Reduzido para menos brilho */
+    transition: all 0.3s ease;
+    animation: glow 2s ease-in-out infinite alternate; /* Mantido, mas ajustado */
+    position: relative;
+    overflow: hidden;
+}
+
+.order-button span {
+    position: relative;
+    z-index: 3; /* Garante que o texto fique acima da animação */
+}
+
+.order-button::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(45deg, #ffffff, #cccccc); /* Gradiente branco para cinza claro */
+    transition: height 1s ease;
+    border-radius: 47px; /* Para combinar com o botão */
+    z-index: 2;
+}
+
+.order-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); /* Reduzido */
+}
+
+.order-button.filling::before {
+    height: 100%;
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); } /* Reduzido */
+    100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); } /* Reduzido */
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    animation: modalFadeIn 0.5s ease-out;
+}
+
+.modal-content {
+    background: black;
+    padding: 30px;
+    border-radius: 20px;
+    width: 80%;
+    height: 80%;
+    max-width: none;
+    overflow-y: auto; /* Volta a barra de scroll */
+    position: relative;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* Reduzido */
+    animation: modalSlideIn 0.5s ease-out;
+}
+
+@keyframes modalFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes modalSlideIn {
+    0% { transform: scale(0.8) translateY(-50px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.modal-content h2 {
+    color: white;
+    /* Removido text-shadow para reduzir neon */
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: white;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #555;
+    border-radius: 10px;
+    background: #222;
+    color: white;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-color: #ffffff;
+    outline: none;
+}
+
+.ivs {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.ivs input {
+    width: 80px;
+    flex: 1;
+}
+
+.note {
+    opacity: 0.7;
+    font-size: 14px;
+    margin-top: 5px;
+    color: #ccc;
+}
+
+.submit-btn {
+    background: linear-gradient(45deg, #ffffff, #cccccc);
+    color: black;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: scale(1.05);
+}

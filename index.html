@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja de Pokémon - Cobblemon</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .success-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            align-items: center;
+            justify-content: center;
+        }
+        .success-modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .success-modal-content h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        .success-modal-content p {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .success-ok-btn {
+            background-color: white;
+            color: #667eea;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        .success-ok-btn:hover {
+            transform: scale(1.05);
+        }
+        .checkmark {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Ondas no fundo -->
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+
+    <!-- Imagem da skin como overlay -->
+    <div class="skin-image"></div>
+
+    <!-- Conteúdo centralizado -->
+    <div class="content">
+        <h1 class="title">Bem-vindo à Loja do <span class="red">B</span>uch<span class="purple">a</span>!</h1>
+        <p class="subtitle">Faça a encomenda do seu Pokémon!</p>
+        <button class="order-button" id="orderBtn" onclick="openModal()"><span>Fazer encomenda</span></button>
+    </div>
+
+    <!-- Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Formulário de Encomenda</h2>
+            <form id="orderForm" onsubmit="submitOrder(event)">
+                <div class="form-group">
+                    <label for="mineName">Nome no Mine:</label>
+                    <input type="text" id="mineName" required>
+                </div>
+                <div class="form-group">
+                    <label for="discord">Discord:</label>
+                    <input type="text" id="discord" required>
+                </div>
+                <div class="form-group">
+                    <label for="pokemon">Pokémon:</label>
+                    <input type="text" id="pokemon" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gênero:</label>
+                    <input type="text" id="gender" required>
+                </div>
+                <div class="form-group">
+                    <label for="ability">Ability:</label>
+                    <input type="text" id="ability" required>
+                    <p class="note">Não faço hidden abilitys por enquanto</p>
+                </div>
+                <div class="form-group">
+                    <label>IVs (0-31):</label>
+                    <div class="ivs">
+                        <input type="number" id="hp" placeholder="HP" min="0" max="31" required>
+                        <input type="number" id="atk" placeholder="ATK" min="0" max="31" required>
+                        <input type="number" id="def" placeholder="DEF" min="0" max="31" required>
+                        <input type="number" id="spatk" placeholder="SPATK" min="0" max="31" required>
+                        <input type="number" id="spdef" placeholder="SPDEF" min="0" max="31" required>
+                        <input type="number" id="spd" placeholder="SPD" min="0" max="31" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="eggMove">Algum egg move?:</label>
+                    <input type="text" id="eggMove">
+                </div>
+                <div class="form-group">
+                    <label for="level">Level:</label>
+                    <input type="number" id="level" min="1" max="100" required>
+                    <p class="note">1000$ por level</p>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Observação extra:</label>
+                    <textarea id="notes" rows="4"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Sucesso -->
+    <div id="successModal" class="success-modal">
+        <div class="success-modal-content">
+
+            <h2>Pedido enviado com sucesso!</h2>
+            <p>O valor e futuras informações você vai receber no seu discord</p>
+            <button class="success-ok-btn" onclick="closeSuccessModal()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('orderModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        function showSuccessModal() {
+            document.getElementById('successModal').style.display = 'flex';
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+        }
+    </script>
+    <script src="{{ url_for('static', filename='submitOrder.js') }}"></script>
+</body>
+</html>

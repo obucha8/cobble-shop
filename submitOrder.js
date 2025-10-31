@@ -1,27 +1,14 @@
-// submitOrder.js
-
+// submitOrder.js (versão mínima para teste)
 function submitOrder(event) {
-    event.preventDefault(); // impede o reload da página
+    event.preventDefault(); // impede reload da página
 
-    // Pega os dados do formulário
+    // Pega só dois campos por enquanto
     const data = {
         mineName: document.getElementById('mineName').value,
-        discord: document.getElementById('discord').value,
-        pokemon: document.getElementById('pokemon').value,
-        gender: document.getElementById('gender').value,
-        ability: document.getElementById('ability').value,
-        hp: document.getElementById('hp').value,
-        atk: document.getElementById('atk').value,
-        def: document.getElementById('def').value,
-        spatk: document.getElementById('spatk').value,
-        spdef: document.getElementById('spdef').value,
-        spd: document.getElementById('spd').value,
-        eggMove: document.getElementById('eggMove').value,
-        level: document.getElementById('level').value,
-        notes: document.getElementById('notes').value
+        discord: document.getElementById('discord').value
     };
 
-    // URL do seu Apps Script (substitua pela sua)
+    // URL do seu Apps Script (corrigida)
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzdtF4jSbYh2TeKZ3gl-Y7qrWjOURj7SpVqB08tAn7LXcWbAendZrbLgVXPsqyV1NGjkQ/exec';
 
     // Envia os dados via POST
@@ -32,10 +19,7 @@ function submitOrder(event) {
     .then(response => response.json())
     .then(result => {
         if(result.status === 'success') {
-            // Fecha o modal e abre o modal de sucesso
-            closeModal();
-            showSuccessModal();
-            // Reseta o formulário
+            alert('Pedido enviado com sucesso!'); // teste simples
             document.getElementById('orderForm').reset();
         } else {
             alert('Erro ao enviar o pedido: ' + result.message);
@@ -45,6 +29,3 @@ function submitOrder(event) {
         alert('Erro ao enviar o pedido: ' + error);
     });
 }
-
-
-

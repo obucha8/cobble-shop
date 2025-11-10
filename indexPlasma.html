@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja da Guilda Plasma</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Corpo com fundo animado e logo transparente */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #111111 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('plasmaLogo.png');
+            /* substitua pela tua logo */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 30%;
+            opacity: 0.1;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Botão de voltar — canto superior esquerdo */
+        .back-button {
+            position: absolute;
+            top: 35px;
+            left: 60px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+            z-index: 10;
+        }
+
+        .back-button:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            transform: scale(1.03);
+        }
+
+        /* Cabeçalho */
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #00BFFF;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+            animation: glowPulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glowPulse {
+            from {
+                text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+            }
+
+            to {
+                text-shadow: 0 0 20px rgba(0, 191, 255, 1);
+            }
+        }
+
+        /* Container principal */
+        main {
+            max-width: 1000px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        /* Grade de produtos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .products-grid .product-card {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .products-grid .product-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .products-grid .product-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .products-grid .product-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .products-grid .product-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .products-grid .product-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .products-grid .product-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .products-grid .product-card:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+
+        .products-grid .product-card:nth-child(8) {
+            animation-delay: 0.8s;
+        }
+
+        .products-grid .product-card:nth-child(9) {
+            animation-delay: 0.9s;
+        }
+
+        /* Card de produto */
+        .product-card {
+            background: rgba(17, 17, 17, 0.9);
+            border: 1px solid #1E90FF;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 191, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            border-color: #00BFFF;
+            box-shadow: 0 0 30px rgba(0, 191, 255, 0.6);
+            transform: translateY(-5px) rotateX(5deg);
+        }
+
+        .product-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            border-radius: 0;
+            margin-right: 15px;
+            transition: transform 0.3s ease;
+        }
+
+
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            flex: 1;
+            transition: color 0.3s ease;
+        }
+
+        .product-card:hover .product-info {
+            color: #e0e0e0;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            font-size: 1rem;
+            color: #00BFFF;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .product-card:hover .product-price {
+            color: #87CEEB;
+        }
+
+        /* Texto extra */
+        .template-text {
+            text-align: center;
+            margin: 40px 0;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .template-text p {
+            font-size: 1.2rem;
+            color: #ffffff;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Seção de promoções */
+        .promotions {
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .promotions h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #00BFFF;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+        }
+
+        .promotions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .products-grid,
+            .promotions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .product-image {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .product-card:hover {
+                transform: translateY(-3px);
+            }
+
+            .template-text p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Botão de voltar -->
+    <a href="index.html" class="back-button">Voltar</a>
+
+    <header>
+        <h1>Loja da Guilda Plasma</h1>
+    </header>
+
+    <main>
+        <section class="products-grid">
+            <!-- 8 produtos de exemplo -->
+            <div class="product-card"><img src="fotos/HP_Up.png" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Pots de EVs</div>
+                    <div class="product-price">1,5k cada</div>
+                </div>
+            </div>
+            <div class="product-card"><img src="fotos/Pomeg_Berry.png" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Berrys de Evs</div>
+                    <div class="product-price">1k cada</div>
+                </div>
+            </div>
+            <div class="product-card"><img src="fotos/Netherite_Upgrade_Smithing_Template_JE1_BE1.png"
+                    class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Moldes</div>
+                    <div class="product-price">20k cada</div>
+                </div>
+            </div>
+            <div class="product-card"><img src="fotos/mint1.png" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Mints</div>
+                    <div class="product-price">1.5k cada</div>
+                </div>
+            </div>
+            <div class="product-card"><img src="fotos/Light_Blue_Shulker_Box.png" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Shulker Box</div>
+                    <div class="product-price">15k cada</div>
+                </div>
+            </div>
+            <div class="product-card"><img src="fotos/Starf_Berry.png" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Star Berry</div>
+                    <div class="product-price">70k por pack</div>
+                </div>
+            </div>
+            <div class="product-card"><img src="fotos/Block_of_Iron_JE4_BE3.png" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Ferro</div>
+                    <div class="product-price">2.5k por pack</div>
+                </div>
+            </div>
+            <div class="product-card"><img src="fotos/Fishing_Rod_JE2_BE2.png" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">Rods/Poké Rods encantadas</div>
+                    <div class="product-price">40k cada</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="template-text">
+            <p>Para fazer os pedidos, entre em contato com alguém dentro do jogo:</p>
+            <p>obucha</p>
+            <p>solomony</p>
+            <p>FallAngela</p>
+            <p>Naokyzin</p>
+
+        </section>
+
+        <section class="promotions">
+            <h2>🔥 Promoções da Semana 🔥</h2>
+            <div class="promotions-grid">
+                <div class="product-card"><img src="fotos/pp_up.png" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">1 pack de Pots</div>
+                        <div class="product-price"><s>96k</s> 🠒 80k</div>
+                    </div>
+                </div>
+                <div class="product-card"><img src="fotos/Enigma_Berry.png" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">1 pack de Berrys de Evs</div>
+                        <div class="product-price"><s>64k</s> 🠒 50k</div>
+                    </div>
+                </div>
+                <div class="product-card"><img src="fotos/blockiron.png" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">1 pack de Bloco de Ferro</div>
+                        <div class="product-price"><s>22,5k</s> 🠒 18.5k</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+<script>
+    // Lista de imagens de cada produto
+    const produtos = [
+        // === PRODUTO 1 ===
+        [
+            'fotos/HP_Up.png',
+            'fotos/Protein.png',
+            'fotos/Iron.png',
+            'fotos/Calcium.png',
+            'fotos/Zinc.png',
+            'fotos/Carbos.png'
+        ],
+
+        // === PRODUTO 2 ===
+        [
+            'fotos/Pomeg_Berry.png',
+            'fotos/Kelpsy_Berry.png',
+            'fotos/Qualot_Berry.png',
+            'fotos/Hondew_Berry.png',
+            'fotos/Grepa_Berry.png',
+            'fotos/Tamato_Berry.png'
+        ],
+
+        // === PRODUTO 3 ===
+        [
+            'fotos/Netherite_Upgrade_Smithing_Template_JE1_BE1.png',
+            'fotos/Smithing_Template_(Poké_Rod_Upgrade).png',
+            'fotos/Sentry_Armor_Trim_Smithing_Template_JE2_BE2.png'
+        ],
+
+        // === PRODUTO 4 ===
+        [
+            'fotos/mint1.png',
+            'fotos/mint2.png',
+            'fotos/mint3.png',
+            'fotos/mint4.png',
+            'fotos/mint5.png'
+        ]
+    ];
+
+    // Tempo entre trocas (em ms)
+    const intervaloTroca = 2500;
+
+    // Função genérica para criar carrosséis automáticos
+    produtos.forEach((imagens, index) => {
+        const produtoImg = document.querySelector(`.product-card:nth-child(${index + 1}) .product-image`);
+        if (!produtoImg) return; // caso não exista
+
+        // Pré-carrega imagens
+        imagens.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+
+        // Controla o índice de cada produto
+        let i = 0;
+
+        // Troca a imagem a cada intervalo
+        setInterval(() => {
+            i = (i + 1) % imagens.length;
+            produtoImg.src = imagens[i];
+        }, intervaloTroca);
+    });
+</script>
+
+
+</body>
+
+</html>
